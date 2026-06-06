@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema targetNamespace="http://www.fixm.aero/flight/4.3" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:fx="http://www.fixm.aero/flight/4.3" xmlns:fb="http://www.fixm.aero/base/4.3" elementFormDefault="qualified" version="4.3.0">
+	<xs:annotation>
+		<xs:documentation>An FF-ICE Flight Plan Update message Capability template.
+
+===========================================
+Copyright (c) 2023, Members of the FIXM CCB
+===========================================
+All rights reserved.
+Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
+  * Redistributions of source code must retain the above copyright notice, this list of conditions and the disclaimer.
+  * Redistributions in binary form must reproduce the above copyright notice, this list of conditions and the disclaimer in the documentation and/or other materials provided with the distribution.
+  * Neither the names of the FIXM CCB members nor the names of their contributors may be used to endorse or promote products derived from this specification without specific prior written permission.
+
+DISCLAIMER
+THIS SPECIFICATION IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+==========================================
+Editorial note: this license is an instance of the BSD license template as provided by the Open Source Initiative:
+http://www.opensource.org/licenses/bsd-license.php
+The authoritative reference for FIXM is www.FIXM.aero.
+Details on the FIXM CCB and a list of its members is available on request from FIXM_Secretariat@lists.eurocontrol.int</xs:documentation>
+	</xs:annotation>
+	<xs:import namespace="http://www.fixm.aero/base/4.3" schemaLocation="../../base/FficeFPU_Base.xsd"/>
+	<xs:include schemaLocation="../../../../../../core/flight/capability/Capability.xsd"/>
+	<xs:complexType name="FficeFPU_FlightCapabilitiesType">
+		<xs:annotation>
+			<xs:documentation>The capabilities of the flight comprising of the:
+a) presence of relevant serviceable equipment on board the aircraft;
+b) equipment and capabilities commensurate with flight crew qualifications; and
+c) where applicable, authorization from the appropriate authority.
+[FIXM]</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="fx:FlightCapabilitiesType">
+				<xs:sequence>
+					<xs:element name="communication" type="fx:CommunicationCapabilitiesType" minOccurs="0" maxOccurs="1" nillable="true">
+						<xs:annotation>
+							<xs:documentation>The serviceable communications equipment, available on the aircraft at the time of flight, and associated flight crew qualifications that may be used to communicate with ATS units. [FIXM]</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="extension" type="fb:FlightCapabilitiesExtensionType" minOccurs="0" maxOccurs="2000" nillable="true">
+						<xs:annotation>
+							<xs:documentation>An extension hook for attaching extension (non-core) classes.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="navigation" type="fx:NavigationCapabilitiesType" minOccurs="0" maxOccurs="1" nillable="true">
+						<xs:annotation>
+							<xs:documentation>The navigation capability of the aircraft and associated flight crew qualifications. [FIXM]</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="standardCapabilities" type="fx:StandardCapabilitiesIndicatorType" minOccurs="0" maxOccurs="1" nillable="true">
+						<xs:annotation>
+							<xs:documentation>If present, indicates that aircraft has the "standard" capabilities for the flight.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="surveillance" type="fx:SurveillanceCapabilitiesType" minOccurs="0" maxOccurs="1" nillable="true">
+						<xs:annotation>
+							<xs:documentation>The serviceable Secondary Surveillance Radar (SSR) and/or Automatic Dependent Surveillance (ADS) equipment available on the aircraft at the time of flight that may be used to identify and/or locate the aircraft. [FIXM]</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="survival" type="fx:FficeFPU_SurvivalCapabilitiesType" minOccurs="0" maxOccurs="1" nillable="true">
+						<xs:annotation>
+							<xs:documentation>The emergency and survival equipments available on board the aircraft. [FIXM]</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="FficeFPU_SurvivalCapabilitiesType">
+		<xs:annotation>
+			<xs:documentation>The emergency and survival equipments available on board the aircraft. [FIXM]</xs:documentation>
+		</xs:annotation>
+		<xs:complexContent>
+			<xs:restriction base="fx:SurvivalCapabilitiesType">
+				<xs:sequence>
+					<xs:element name="dinghyInformation" type="fx:DinghiesType" minOccurs="0" maxOccurs="1" nillable="true">
+						<xs:annotation>
+							<xs:documentation>Dinghy information including total capacity in persons of all dinghies carried, indicator if dinghies are covered, their colours and number. [ICAO Doc 4444, Appendix 2, ITEM 19 D]</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="emergencyRadioCapabilityType" type="fx:EmergencyRadioCapabilityTypeListType" minOccurs="0" maxOccurs="1" nillable="true">
+						<xs:annotation>
+							<xs:documentation>The type of serviceable communication devices available on the aircraft that are able to transmit an emergency radio signal. [FIXM]</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="extension" type="fb:SurvivalCapabilitiesExtensionType" minOccurs="0" maxOccurs="2000" nillable="true">
+						<xs:annotation>
+							<xs:documentation>An extension hook for attaching extension (non-core) classes.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="lifeJacketType" type="fx:LifeJacketTypeListType" minOccurs="0" maxOccurs="1" nillable="true">
+						<xs:annotation>
+							<xs:documentation>The type of life jackets available on board the aircraft. [FIXM]</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="survivalEquipmentRemarks" type="fb:CharacterStringType" minOccurs="0" maxOccurs="1" nillable="true">
+						<xs:annotation>
+							<xs:documentation>A description of survival equipment carried on the aircraft and any other useful remarks regarding survival equipment.</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element name="survivalEquipmentType" type="fx:SurvivalEquipmentTypeListType" minOccurs="0" maxOccurs="1" nillable="true">
+						<xs:annotation>
+							<xs:documentation>The type of equipment carried on board the aircraft that can be used by the crew and passengers to assist survival in harsh environments in case of emergency. [FIXM]</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:restriction>
+		</xs:complexContent>
+	</xs:complexType>
+</xs:schema>
